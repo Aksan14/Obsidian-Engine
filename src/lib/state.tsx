@@ -44,10 +44,10 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [events, setEvents] = useState<Event[]>([{
     id: id("evt"),
-    title: "Tech Talk Next.js",
-    description: "Belajar membuat platform event kampus dengan Next.js",
+    title: "Kompetisi Keinformatikaan Teknik Inormatika",
+    description: "Kompetisi Beberapa Cabang Di bidang Keinformatikaan Fakultas Teknik UNISMUH Makassar",
     date: new Date(Date.now() + 86400000).toISOString(),
-    location: "Aula Kampus",
+    location: "Aula Teknik UNISMUH Makassar",
     createdBy: "seed",
     status: "APPROVED",
     capacity: 100

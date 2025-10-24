@@ -35,63 +35,48 @@ export default function ContactPage() {
             </p>
           </div>
 
-          {/* Contact Cards */}
+          {/* Contact Cards - tanpa ikon */}
           <div className="space-y-4">
-            <div className="card hover:shadow-lg transition-all">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-full bg-red-50 flex items-center justify-center flex-shrink-0">
-                  <span className="text-2xl">📧</span>
-                </div>
-                <div>
-                  <h3 className="font-semibold mb-1">Email</h3>
-                  <p className="text-sm text-gray-600">admin@obsidiaengine.ac.id</p>
-                  <p className="text-xs text-gray-500 mt-1">Respons dalam 1-2 hari kerja</p>
-                </div>
+            <div className="card hover:shadow-lg transition-all p-4">
+              <div>
+                <h3 className="font-semibold mb-1">Email</h3>
+                <p className="text-sm text-gray-600">admin@obsidiaengine.ac.id</p>
+                <p className="text-xs text-gray-500 mt-1">Respons dalam 1-2 hari kerja</p>
               </div>
             </div>
 
-            <div className="card hover:shadow-lg transition-all">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-full bg-red-50 flex items-center justify-center flex-shrink-0">
-                  <span className="text-2xl">📱</span>
-                </div>
-                <div>
-                  <h3 className="font-semibold mb-1">WhatsApp</h3>
-                  <p className="text-sm text-gray-600">+62 812-3456-7890</p>
-                  <p className="text-xs text-gray-500 mt-1">Senin - Jumat, 09:00 - 17:00</p>
-                </div>
+            <div className="card hover:shadow-lg transition-all p-4">
+              <div>
+                <h3 className="font-semibold mb-1">WhatsApp</h3>
+                <p className="text-sm text-gray-600">+62 812-3456-7890</p>
+                <p className="text-xs text-gray-500 mt-1">Senin - Jumat, 09:00 - 17:00</p>
               </div>
             </div>
 
-            <div className="card hover:shadow-lg transition-all">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-full bg-red-50 flex items-center justify-center flex-shrink-0">
-                  <span className="text-2xl">📍</span>
-                </div>
-                <div>
-                  <h3 className="font-semibold mb-1">Lokasi</h3>
-                  <p className="text-sm text-gray-600">Gedung IQRO Lt. 3</p>
-                  <p className="text-xs text-gray-500 mt-1">Universitas Muhammadiyah Makassar, Kota Makassar</p>
-                </div>
+            <div className="card hover:shadow-lg transition-all p-4">
+              <div>
+                <h3 className="font-semibold mb-1">Lokasi</h3>
+                <p className="text-sm text-gray-600">Gedung IQRO Lt. 3</p>
+                <p className="text-xs text-gray-500 mt-1">Universitas Muhammadiyah Makassar, Kota Makassar</p>
               </div>
             </div>
           </div>
 
-          {/* Social Links */}
-          <div className="card bg-gradient-to-br from-gray-50 to-gray-100">
+          {/* Social Links - tanpa ikon emoji */}
+          <div className="card bg-gradient-to-br from-gray-50 to-gray-100 p-4">
             <h3 className="font-semibold mb-3">Ikuti Kami</h3>
             <div className="flex gap-3">
-              <a href="#" className="w-10 h-10 rounded-lg bg-white hover:bg-red-50 hover:text-red-600 flex items-center justify-center transition-all shadow-sm">
-                <span className="text-lg">📘</span>
+              <a href="#" className="w-10 h-10 rounded-lg bg-white hover:bg-red-50 text-sm text-gray-700 flex items-center justify-center transition-all shadow-sm">
+                FB
               </a>
-              <a href="#" className="w-10 h-10 rounded-lg bg-white hover:bg-red-50 hover:text-red-600 flex items-center justify-center transition-all shadow-sm">
-                <span className="text-lg">📸</span>
+              <a href="#" className="w-10 h-10 rounded-lg bg-white hover:bg-red-50 text-sm text-gray-700 flex items-center justify-center transition-all shadow-sm">
+                IG
               </a>
-              <a href="#" className="w-10 h-10 rounded-lg bg-white hover:bg-red-50 hover:text-red-600 flex items-center justify-center transition-all shadow-sm">
-                <span className="text-lg">🐦</span>
+              <a href="#" className="w-10 h-10 rounded-lg bg-white hover:bg-red-50 text-sm text-gray-700 flex items-center justify-center transition-all shadow-sm">
+                TW
               </a>
-              <a href="#" className="w-10 h-10 rounded-lg bg-white hover:bg-red-50 hover:text-red-600 flex items-center justify-center transition-all shadow-sm">
-                <span className="text-lg">💼</span>
+              <a href="#" className="w-10 h-10 rounded-lg bg-white hover:bg-red-50 text-sm text-gray-700 flex items-center justify-center transition-all shadow-sm">
+                LI
               </a>
             </div>
           </div>
@@ -101,7 +86,6 @@ export default function ContactPage() {
         <div>
           {sent ? (
             <div className="card text-center py-12 bg-gradient-to-br from-green-50 to-emerald-50 border-green-200">
-              <div className="text-6xl mb-4">✅</div>
               <h3 className="text-2xl font-bold mb-2 text-green-800">Pesan Terkirim!</h3>
               <p className="text-gray-700 mb-4">
                 Terima kasih telah menghubungi kami. Tim kami akan segera merespons pesan Anda.
@@ -109,7 +93,7 @@ export default function ContactPage() {
               <p className="text-sm text-gray-600">Form akan direset otomatis...</p>
             </div>
           ) : (
-            <div className="card">
+            <div className="card p-6">
               <h2 className="text-2xl font-bold mb-2">Kirim Pesan</h2>
               <p className="text-sm text-gray-600 mb-6">
                 Isi form di bawah dan kami akan merespons secepat mungkin
@@ -152,7 +136,7 @@ export default function ContactPage() {
                 </div>
                 
                 <button type="submit" className="btn-primary w-full">
-                  📨 Kirim Pesan
+                  Kirim Pesan
                 </button>
                 
                 <p className="text-xs text-gray-500 text-center">

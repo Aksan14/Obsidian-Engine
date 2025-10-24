@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { useState } from "react";
 
 export default function Home() {
   // Dummy events data
@@ -46,6 +49,17 @@ export default function Home() {
     },
   ];
 
+  // Gallery images (letakkan file gambar di /public/galeri/)
+  const galleryImages = [
+    "/6.png",
+    "/5.png",
+    "/4.png",
+    "/3.png",
+    "/2.png",
+    "/1.png"
+  ];
+  const [activeImage, setActiveImage] = useState<string | null>(null);
+  
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900">
       {/* Hero Section */}
@@ -256,9 +270,9 @@ export default function Home() {
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { number: "20+", label: "Lembaga Terintegrasi" },
+              { number: "5+", label: "Lembaga Terintegrasi" },
               { number: "1000+", label: "Mahasiswa Terdaftar" },
-              { number: "150+", label: "Event Terselenggara" },
+              { number: "10+", label: "Event Terselenggara" },
               { number: "5 Menit", label: "Rata-rata Registrasi" }
             ].map((stat, idx) => (
               <div 
@@ -374,6 +388,77 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Galeri Dokumentasi (kegiatan sudah terlaksana) */}
+      <section className="py-16 lg:py-20 relative">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl lg:text-4xl font-black text-white mb-3">
+              Galeri Dokumentasi
+            </h2>
+            <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+              Dokumentasi kegiatan dan kegiatan yang telah terlaksana — klik untuk memperbesar.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+            {galleryImages.map((src, idx) => (
+              <button
+                key={idx}
+                onClick={() => setActiveImage(src)}
+                className="group bg-white/5 backdrop-blur-sm rounded-2xl overflow-hidden border-2 border-white/10 hover:border-red-600 hover:scale-[1.02] transition-all duration-200"
+              >
+                <div className="relative w-full h-48">
+                  <Image
+                    src={src}
+                    alt={`Dokumentasi ${idx + 1}`}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    priority={idx < 3}
+                  />
+                </div>
+                <div className="p-3 text-sm text-gray-300">
+                  Foto kegiatan {idx + 1}
+                </div>
+              </button>
+            ))}
+          </div>
+
+          <div className="text-center mt-10">
+            <Link
+              href="/gallery"
+              className="inline-flex items-center justify-center px-10 py-4 text-base font-bold text-white bg-gradient-to-r from-red-600 to-red-700 rounded-xl hover:from-red-700 hover:to-red-800 shadow-lg shadow-red-600/40 transition-all duration-300"
+            >
+              Lihat Selengkapnya →
+            </Link>
+          </div>
+        </div>
+
+        {/* Modal pembesaran gambar */}
+        {activeImage && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4">
+            <div className="relative max-w-4xl w-full">
+              <button
+                onClick={() => setActiveImage(null)}
+                className="absolute -top-4 -right-4 bg-red-600 text-white rounded-full w-10 h-10 flex items-center justify-center shadow-lg"
+                aria-label="Tutup"
+              >
+                ×
+              </button>
+              <div className="bg-gradient-to-br from-gray-900 to-black border-2 border-white/10 rounded-2xl overflow-hidden p-4">
+                <div className="relative w-full h-[60vh] sm:h-[70vh]">
+                  <Image
+                    src={activeImage}
+                    alt="Dokumentasi besar"
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </section>
+
       {/* About Organizer Section */}
       <section className="py-16 lg:py-20 relative">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -433,9 +518,9 @@ export default function Home() {
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { name: "Fakultas Teknik", initial: "FT" },
-              { name: "Fakultas Sains", initial: "FS" },
-              { name: "BEM Kampus", initial: "BK" },
+              { name: "Lembaga Fakultas Teknik", initial: "FT" },
+              { name: "Pimpinan Komisariat IMM FT", initial: "PK" },
+              { name: "Badan Eksekutif Mahasiswa Fakultas Teknik", initial: "BK" },
               { name: "Direktorat Kemahasiswaan", initial: "DK" }
             ].map((partner, idx) => (
               <div 
