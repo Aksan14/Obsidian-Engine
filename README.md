@@ -1,4 +1,4 @@
-Platform UKM & Event Kampus (UI-only)
+Platform Lembaga & Event Kampus (UI-only)
 ====================================
 
 Proyek ini menyediakan tampilan (frontend saja) untuk platform manajemen UKM dan event kampus:
