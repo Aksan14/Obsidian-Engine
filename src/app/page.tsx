@@ -290,7 +290,7 @@ export default function Home() {
       </section>
 
       {/* Event Mendatang Section */}
-      <section className="py-16 lg:py-20 relative">
+      {/* <section className="py-16 lg:py-20 relative">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-black text-white mb-3">
@@ -312,19 +312,19 @@ export default function Home() {
                   href={`/events/${event.id}`}
                   className="group bg-white/5 backdrop-blur-sm rounded-2xl p-5 hover:bg-white/10 hover:-translate-y-2 transition-all duration-300 border-2 border-white/10 hover:border-red-600"
                 >
-                  {/* Category Badge */}
+                  {/* Category Badge }
                   <div className="mb-3">
                     <span className="bg-gradient-to-r from-red-600 to-red-700 text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-md shadow-red-600/30">
                       {event.category}
                     </span>
                   </div>
                   
-                  {/* Event Title */}
+                  {/* Event Title }
                   <h3 className="font-black text-base mb-3 line-clamp-2 text-white group-hover:text-red-400 transition-colors min-h-[3rem]">
                     {event.title}
                   </h3>
                   
-                  {/* Event Info */}
+                  {/* Event Info }
                   <div className="space-y-2 text-xs mb-4">
                     <div className="flex items-center gap-2 text-gray-400">
                       <span className="text-red-500 font-bold">📅</span>
@@ -344,7 +344,7 @@ export default function Home() {
                     </div>
                   </div>
                   
-                  {/* Capacity Progress */}
+                  {/* Capacity Progress }
                   <div className="mb-4">
                     <div className="flex justify-between text-xs text-gray-400 mb-1.5 font-bold">
                       <span>{event.registered} terdaftar</span>
@@ -365,7 +365,7 @@ export default function Home() {
                     </div>
                   </div>
                   
-                  {/* CTA */}
+                  {/* CTA }
                   <div className="pt-3 border-t-2 border-white/10 group-hover:border-red-600/50">
                     <span className="text-sm font-bold text-red-500 inline-flex items-center gap-2 group-hover:gap-3 transition-all">
                       Lihat Detail
@@ -386,7 +386,7 @@ export default function Home() {
             </Link>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Galeri Dokumentasi (kegiatan sudah terlaksana) */}
       <section className="py-16 lg:py-20 relative">
@@ -423,14 +423,7 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="text-center mt-10">
-            <Link
-              href="/gallery"
-              className="inline-flex items-center justify-center px-10 py-4 text-base font-bold text-white bg-gradient-to-r from-red-600 to-red-700 rounded-xl hover:from-red-700 hover:to-red-800 shadow-lg shadow-red-600/40 transition-all duration-300"
-            >
-              Lihat Selengkapnya →
-            </Link>
-          </div>
+          {/* Lihat Selengkapnya removed - gallery shows inline */}
         </div>
 
         {/* Modal pembesaran gambar */}
