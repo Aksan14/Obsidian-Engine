@@ -79,7 +79,7 @@ export default function EventsPage() {
           </div>
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {events.map((e) => {
+            {events.filter((ev) => ev.status === "APPROVED").map((e) => {
               const eventDate = new Date(e.date);
               
               const handleClick = (evt: React.MouseEvent) => {

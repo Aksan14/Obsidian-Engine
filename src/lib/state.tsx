@@ -12,6 +12,8 @@ type State = {
   logout: () => void;
   createEvent: (e: Omit<Event, "id" | "status" | "createdBy">) => string;
   approveEvent: (eventId: string) => void;
+  checkInByTicket: (ticketCode: string) => { ok: boolean; message: string; eventId?: string };
+  setPresent: (ticketCode: string, present: boolean) => { ok: boolean; message: string };
   registerEvent: (
     eventId: string,
     data: Pick<Registration, "userName" | "userEmail" | "nim">
@@ -95,6 +97,45 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       approveEvent: (eventId) => {
         setEvents((prev) => prev.map((ev) => (ev.id === eventId ? { ...ev, status: "APPROVED" } : ev)));
       },
+      checkInByTicket: (ticketCode: string) => {
+        // find registration
+        let found = null as Registration | null;
+        setRegistrations((prev) => {
+          const next = prev.map((r) => {
+            if (r.ticketCode === ticketCode) {
+              found = r;
+              return { ...r, present: true };
+            }
+            return r;
+          });
+          return next;
+        });
+
+        if (!found) return { ok: false, message: "Tiket tidak ditemukan" };
+
+        // verify permission: only admin or creator of event can check-in
+        const ev = events.find((e) => e.id === found!.eventId);
+        if (!ev) return { ok: false, message: "Event tidak ditemukan" };
+        if (!(user?.role === "ADMIN" || user?.id === ev.createdBy)) {
+          // revert the present flag if we accidentally set it
+          setRegistrations((prev) => prev.map((r) => (r.ticketCode === ticketCode ? { ...r, present: false } : r)));
+          return { ok: false, message: "Tidak punya izin untuk check-in" };
+        }
+
+        return { ok: true, message: "Check-in berhasil", eventId: ev.id };
+      },
+      setPresent: (ticketCode: string, present: boolean) => {
+        // find reg and event
+        const reg = registrations.find((r) => r.ticketCode === ticketCode);
+        if (!reg) return { ok: false, message: "Tiket tidak ditemukan" };
+        const ev = events.find((e) => e.id === reg.eventId);
+        if (!ev) return { ok: false, message: "Event tidak ditemukan" };
+        if (!(user?.role === "ADMIN" || user?.id === ev.createdBy)) {
+          return { ok: false, message: "Tidak punya izin untuk ubah kehadiran" };
+        }
+        setRegistrations((prev) => prev.map((r) => (r.ticketCode === ticketCode ? { ...r, present } : r)));
+        return { ok: true, message: present ? "Check-in berhasil" : "Check-in dibatalkan" };
+      },
       registerEvent: (eventId, data) => {
         const t = ticketCode(eventId, data.userEmail);
         const reg: Registration = {
@@ -105,6 +146,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
           nim: data.nim,
           ticketCode: t,
           createdAt: new Date().toISOString(),
+          present: false,
         };
         setRegistrations((prev) => [...prev, reg]);
         return t;

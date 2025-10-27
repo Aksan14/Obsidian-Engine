@@ -7,7 +7,7 @@ import { useMemo, useState } from "react";
 export default function EventDetailPage() {
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
-  const { events, registerEvent } = useApp();
+  const { events, registerEvent, user } = useApp();
   const ev = useMemo(() => events.find((e) => e.id === id), [events, id]);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -19,6 +19,19 @@ export default function EventDetailPage() {
         <div className="text-center">
           <h1 className="text-2xl font-black text-white mb-3">Event tidak ditemukan</h1>
           <p className="text-gray-400">Event yang Anda cari tidak tersedia.</p>
+        </div>
+      </div>
+    );
+  }
+
+  const canView = ev.status === "APPROVED" || user?.id === ev.createdBy || user?.role === "ADMIN";
+
+  if (!canView) {
+    return (
+      <div className="min-h-[calc(100vh-64px-300px)] flex items-center justify-center">
+        <div className="text-center bg-white/5 backdrop-blur-sm rounded-2xl border-2 border-white/10 p-8 max-w-lg">
+          <h1 className="text-2xl font-black text-white mb-3">Event belum tersedia</h1>
+          <p className="text-gray-400 mb-4">Event ini masih dalam status <strong>Pending</strong> dan belum disetujui oleh admin. Event hanya akan muncul setelah disetujui.</p>
         </div>
       </div>
     );
@@ -52,9 +65,10 @@ export default function EventDetailPage() {
         </div>
 
         {/* Registration Form */}
-        <section className="bg-white/5 backdrop-blur-sm rounded-2xl border-2 border-white/10 p-6">
-          <h2 className="text-xl font-black text-white mb-5">Pendaftaran Event</h2>
-          <form onSubmit={onSubmit} className="grid gap-5 sm:grid-cols-2">
+        {ev.status === "APPROVED" ? (
+          <section className="bg-white/5 backdrop-blur-sm rounded-2xl border-2 border-white/10 p-6">
+            <h2 className="text-xl font-black text-white mb-5">Pendaftaran Event</h2>
+            <form onSubmit={onSubmit} className="grid gap-5 sm:grid-cols-2">
             <div className="sm:col-span-1">
               <label className="block text-sm font-bold text-white mb-2">
                 Nama <span className="text-red-500">*</span>
@@ -99,8 +113,14 @@ export default function EventDetailPage() {
                 Daftar & Dapatkan Tiket
               </button>
             </div>
-          </form>
-        </section>
+            </form>
+          </section>
+        ) : (
+          <section className="bg-white/5 backdrop-blur-sm rounded-2xl border-2 border-white/10 p-6">
+            <h2 className="text-xl font-black text-white mb-3">Pendaftaran Belum Dibuka</h2>
+            <p className="text-gray-400">Pendaftaran untuk event ini belum dibuka karena event belum disetujui oleh admin.</p>
+          </section>
+        )}
       </div>
     </div>
   );

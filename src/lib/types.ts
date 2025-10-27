@@ -27,4 +27,5 @@ export type Registration = {
   nim?: string;
   ticketCode: string; // used for QR
   createdAt: string;
+  present?: boolean; // whether user has checked in
 };

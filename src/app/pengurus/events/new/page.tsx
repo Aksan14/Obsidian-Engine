@@ -2,10 +2,10 @@
 export const dynamic = "force-dynamic";
 import { useRouter } from "next/navigation";
 import { useApp } from "@/lib/state";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function NewEventPage() {
-  const { createEvent } = useApp();
+  const { createEvent, user } = useApp();
   const router = useRouter();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -20,6 +20,16 @@ export default function NewEventPage() {
     const id = createEvent({ title, description, date: iso, location, capacity: capacity === "" ? undefined : Number(capacity) });
     router.push(`/pengurus/events`);
   }
+
+  useEffect(() => {
+    // protect this page: only allow logged-in pengurus to create events
+    if (!user) {
+      router.push("/auth/login");
+    } else if (user.role !== "PENGURUS") {
+      // if logged in but not pengurus, redirect to home
+      router.push("/");
+    }
+  }, [user, router]);
 
   return (
     <div className="max-w-2xl space-y-4">
